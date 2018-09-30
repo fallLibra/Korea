@@ -1,0 +1,171 @@
+@import url("../function.less");
+@import url("../publicConfig.less");
+
+.mainPart {
+	.bannerPart {
+		img {
+			display: block;
+			width: 100%;
+		}
+	}
+	.checkPart {
+		padding-left: 14px;
+		.inputDv,
+		.selectDv {
+			font-size: 16px;
+			font-weight: 700;
+			margin-bottom: 14px;
+			color: #000;
+			&>div {
+				display: inline-block;
+				font-weight: 400;
+			}
+		}
+		.selectDv {
+			padding-top: 42px;
+			&>div {
+				width: 198px;
+				margin-left: 30px;
+				select {
+					width: 100%;
+					font-size: 14px;
+					padding-top: 9px;
+					padding-bottom: 8px;
+					padding-left: 14px;
+					border: 1px solid #b7b7b7;
+					text-align: center;
+					.border-radius(4px);
+				}
+			}
+		}
+		.inputDv {
+			&>div {
+				position: relative;
+				width: 444px;
+				margin-left: 30px;
+				input {
+					width: 100%;
+					font-size: 14px;
+					border: 1px solid #b7b7b7;
+					padding: 10px 90px 9px 16px;
+				}
+				a {
+					position: absolute;
+					top: 0;
+					right: 0;
+					width: 80px;
+					text-align: center;
+					line-height: 40px;
+					background-color: #e21c33;
+					color: #fff;
+
+				}
+			}
+		}
+	}
+	.schoolListPart {
+		.seekSchools {
+			font-size: 18px;
+			line-height: 84px;
+			color: #000;
+			font-weight: 700;
+			padding-left: 14px;
+		}
+		ul {
+			margin-bottom: 30px;
+			li {
+				width: 100%;
+				display: table;
+				border-bottom: 1px solid #e0e0e0;
+				border-left: 1px solid #e0e0e0;
+				border-right: 1px solid #e0e0e0;
+				.transition(all .3s ease 0s);
+				&:first-child {
+					border-top: 1px solid #e0e0e0;
+				}
+				&>div{
+					display: table-cell;
+					// height: 228px;
+					padding-top: 30px;
+					padding-bottom: 38px;
+					vertical-align: middle;
+					text-align: center;
+					&:nth-of-type(1) {
+						width: 230px;
+						cursor: pointer;
+						span {
+							display: inline-block;
+							width: 174px;
+							height: 132px;
+							line-height: 132px;
+							border: 1px solid #e1e1e1;
+							img {
+								max-width: 100%;
+								vertical-align: middle;
+							}
+						}
+					}
+					&:nth-of-type(2) {
+						text-align: left;
+						width: 734px;
+						padding-left: 10px;
+						vertical-align: top;
+						cursor: pointer;
+						
+						h3 {
+							line-height: 46px;
+							font-weight: 700;
+							font-size: 18px;
+							margin-bottom: 25px;
+							span:last-child {
+								line-height: 28px;
+								font-weight: 400;
+								color: #a9a9a9;
+								margin-left: 24px;
+							}
+						}
+						.rankDv {
+							p {
+								float: left;
+								font-size: 14px;
+								color: #a4a2a3;
+								span {
+									color: #e21e34;
+								}
+								&:first-child {
+									margin-right: 48px;
+								}
+							}
+						}
+					}
+					&:nth-of-type(3) {
+						width: 236px;
+						.applyBtn {
+							display: block;
+							width: 140px;
+							height: 34px;
+							color: #E71D33;
+							border: none;
+							border: 1px solid #E71D33;
+							border-radius: 4px;
+							line-height: 32px;
+							cursor: pointer;
+							font-size: 14px;
+							.transition(all .3s ease);
+							&:hover {
+								color: #fff;
+								background-color: #E71D33;
+							}
+						}	
+					}
+				}
+				&:hover {
+					box-shadow: 0 0px 30px 3px #ebebeb;
+					border-bottom: 1px solid transparent;
+					border-left: 1px solid transparent;
+					border-right: 1px solid transparent;
+				}
+			}
+		}
+	}
+}

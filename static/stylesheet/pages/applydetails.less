@@ -1,0 +1,232 @@
+@import url("../function.less");
+@import url("../publicConfig.less");
+
+.mainPart {
+	background-color: #f7f8fc;
+}
+.breadNavPart {
+	padding: 14px 0;
+	text-align: left;
+	font-size: 14px;
+	a {
+		color: #333;
+	}
+	span {
+		color: #777;
+	}
+}
+.whiteBack {
+	background-color: #fff;
+}
+//申请   列表
+.secNavPart {
+	.tabs {
+		font-size: 0;
+		a {
+			display: inline-block;
+			white-space: nowrap;
+			height: 42px;
+			line-height: 42px;
+			padding: 0 16px;
+			text-align: center;
+			font-size: 16px;
+			border-radius: 0;
+			opacity: 1;
+			&.active {
+				background: #ff6136;
+				color: #fff;
+				font-weight: bold;
+			}
+		}
+	}
+
+}
+.tableDv {
+	.applyInfoList {
+		margin-right: -40px;
+		li {
+			position: relative;
+			float: left;
+			width: 270px;
+			height: 357px;
+			margin-right: 40px;
+			background-color: #fff;
+			text-align: center;
+			margin-top: 20px;
+			&>a {
+				display: block;
+				padding: 14px;
+				img {
+					display: block;
+					width: 100%;
+				}
+				h3 {
+					font-size: 17px;
+					font-weight: bold;
+					color: #333;
+					height: 50px;
+					line-height: 25px;
+					margin-top: 10px;							   
+					overflow: hidden;
+					display: -webkit-box;    
+					-webkit-box-orient: vertical;    
+					-webkit-line-clamp: 2;    
+					overflow: hidden;
+					.transition(all 0.2s linear);
+				}
+				p {
+					font-size: 14px;
+					line-height:22px;
+					height: 44px;
+					margin-top: 5px;
+					color: #333;
+					overflow: hidden;
+					display: -webkit-box;    
+					-webkit-box-orient: vertical;    
+					-webkit-line-clamp: 2;    
+					overflow: hidden;
+				}
+			}
+			.hoverDv {
+				// display: none;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				background: rgba(255,255,255,.3);
+				left: 0;
+				height: 56px;
+				.opacity(0);
+				.transition(all .5s);
+				// padding-top: 7px;
+				a {
+					display: inline-block;
+					height: 32px;
+					line-height: 30px;
+					padding: 0 14px;
+					margin: 5px 14px;
+					font-size: 15px;
+					text-align: center;
+					cursor: pointer;
+					color: #333;
+					border: 1px solid #333;
+					background: #fff;
+					.transition(all 0.2s linear);
+					.border-radius(4px);
+					&:last-of-type {
+						background: #ff6136;
+						color: #fff;
+						border-color: #ff6136;
+					}
+				}
+			}
+			&:hover {
+				h3 {
+					color: #ff6136;
+				}
+				.hoverDv {
+					.opacity(1);
+				}
+			}
+
+		}
+	}
+}
+//申请  详情
+.contentPart {
+	display: table;
+	// width: 100%;
+	&>div {
+		display: table-cell;
+		
+		height: 160px;
+		vertical-align: middle;
+		text-align: left;
+		&:first-child {
+			width: 225px;
+			img {
+				display: block;
+				width: 225px;
+				height: 160px;
+			}
+		}
+		&:last-child {
+			position: relative;
+			padding-left: 20px;
+			h2,
+			span {
+				width: 540px;
+			}
+			h2 {
+				font-size: 22px;
+				font-weight: bold;
+				line-height: 30px;
+				margin-bottom: 14px;
+				.single-overflow() 
+			}
+			span {
+				font-size: 14px;
+				overflow: hidden;
+				display: block;
+				line-height: 20px;
+				height: 40px;
+				.multi-overflow(2);
+			}
+			.btnDv {
+				position: absolute;
+				top: 50%;
+				right: 20px;
+				margin-top: -21px;
+				font-size: 0;
+				a {
+					display: inline-block;
+					height: 42px;
+					line-height: 40px;
+					color: #ff6136;
+					border: 1px solid #ff6136;
+					padding: 0 25px;
+					font-size: 17px;
+					text-decoration: none;
+					.border-radius(4px);
+					background: #fff;
+					margin-left: 7px;
+					&:first-child {
+						background: #ff6136;
+						color: #fff;
+						&:hover {
+							.opacity(.8);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.serviceIntro {
+	background-color: #fff;
+	margin-top: 12px;
+	margin-bottom: 28px;
+	.serviceContent {
+		padding-top: 28px;
+		font-size: 14px;
+		line-height: 28px;
+	}
+}
+.applyTitleDv {
+	position: relative;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 56px;
+	color: #333;
+	vertical-align: middle;
+	border-bottom: 1px solid #e2e2e2;
+	.icon-titl {
+		margin-right: 14px;
+		margin-top: -2px;
+		vertical-align: middle;
+	}
+	.icon-flag {
+		margin-right: 13px;
+		margin-top: -2px;
+		vertical-align: middle;
+	}
+}

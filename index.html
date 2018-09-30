@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+  <html class="ie lt-ie9 lt-ie8 lt-ie7" lang="zh-CN" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if IE 7]>
+  <html class="ie lt-ie9 lt-ie8" lang="zh-CN" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if lt IE 10]>
+  <html class="ie ltie10" lang="zh-CN" itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>韩国留学</title>
+    <link rel="icon" href="static/" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon"  />
+    <link rel="stylesheet" type="text/css" href="static/stylesheet/animate.css">
+    <link rel="stylesheet" type="text/css" href="static/stylesheet/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="static/plugins/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="static/stylesheet/public.css">
+    <link rel="stylesheet" type="text/css" href="static/plugins/swiper2/idangerous.swiper.css">
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/plugins/jquery.pagination.js"></script>
+    <script type="text/javascript" src="static/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="static/plugins/swiper2/idangerous.swiper.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="http://crm.xiaoying.net/Public/js/xiaoying_form.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="http://resources.jpwind.com/js/html5shiv.min.js"></script>
+      <script src="http://resources.jpwind.com/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        //百度统计代码
+        // var _hmt = _hmt || [];
+        // (function() {
+        //   var hm = document.createElement("script");
+        //   hm.src = "https://hm.baidu.com/hm.js?adb97d2c5a835681418c7b2bab31618a";
+        //   var s = document.getElementsByTagName("script")[0]; 
+        //   s.parentNode.insertBefore(hm, s);
+        // })();
+
+                //美恰插件代码
+                // (function(m, ei, q, i, a, j, s) {
+                //     m[i] = m[i] || function() {
+                //         (m[i].a = m[i].a || []).push(arguments)
+                //     };
+                //     j = ei.createElement(q),
+                //         s = ei.getElementsByTagName(q)[0];
+                //     j.async = true;
+                //     j.charset = 'UTF-8';
+                //     j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+                //     s.parentNode.insertBefore(j, s);
+                // })(window, document, 'script', '_MEIQIA');
+                // _MEIQIA('entId', 14353);
+    </script>
+  </head>
+  <body>
+
+    <div id="app"></div>
+
+    <script src="http://api.map.baidu.com/api?v=3.0&ak=pUz2rNiU7Evm31qj7G39zly7WGZZ9XAN"></script>
+
+    <script type="text/javascript">
+    //placeholder  兼容IE9
+    var hasPlaceholderSupport = function() {
+      var attr = "placeholder";
+      var input = document.createElement("input");
+      return attr in input;
+    }
+    var support = hasPlaceholderSupport();
+    if (!support) {
+      $('[placeholder]').focus(function() {
+        var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+          input.val('');
+          input.removeClass('placeholder');
+        }
+      }).blur(function() {
+        var input = $(this);
+        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+          input.addClass('placeholder');
+          input.val(input.attr('placeholder'));
+        }
+      }).blur().parents('form').submit(function() {
+        $(this).find('[placeholder]').each(function() {
+          var input = $(this);
+          if (input.val() == input.attr('placeholder')) {
+            input.val('');
+          }
+        })
+      });
+    }
+    
+  </script>
+</body>
+
+</html>
