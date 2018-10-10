@@ -5,8 +5,12 @@
 			<div class="container typeList">
 				<ul class="clearfix">
 					<li v-for="item in applyData" :key="item.catename">
-						<router-link to="/Applydetails">
-							<img src="static/images/application/icon1.png">
+						<router-link to="/Applylist" v-if='item.data'>
+							<img :src="item.cateicon">
+							<p v-html="item.catename"></p>
+						</router-link>
+						<router-link to="/applydetails" v-else>
+							<img :src="item.cateicon">
 							<p v-html="item.catename"></p>
 						</router-link>
 					</li>
@@ -25,6 +29,7 @@
 							<a href="javascript:;" v-for="item in n.data">{{item.title}}</a> 
 						</div>
 					</h4>
+
 					<div class="container" v-if="n.catename != '背景提升'">
 						<ul class="applyInfoList clearfix">
 							<!-- <li>
@@ -34,12 +39,14 @@
 									<a href="javascript:;" target="_blank">在线咨询</a>
 								</div>
 							</li> -->
-							<li v-for="item in n.data">
-								<a href="javascript:;">
+							<li v-for="item in n.data" :key = "n.id">
+								<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: '11' }}">
+								<!-- <a href="javascript:;"> -->
 									<img :src="'http://manage.xiaoying.net'+ item.headimg">
 									<h3>{{item.title}}</h3>
 									<p>{{item.desc}}</p>
-								</a>
+								<!-- </a> -->
+								</router-link>
 								<div class="hoverDv">
 									<!-- <a href="javascript:;" target="_blank">查看详情</a> -->
 									<a href="javascript:;" target="_blank">在线咨询</a>
@@ -47,11 +54,13 @@
 							</li>
 						</ul>
 					</div>
+					<!-- 背景提升 -->
 					<div class="container tableDv" v-else>
 						<div class="swiper-container swiper-container-table">
 							<div class="swiper-wrapper">
 								<div class="swiper-slide" v-for="item in n.data" :key = "n.id">
-									<a href="javascript:;" class="content-slide clearfix">
+									<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: '背景提升' }}" class="content-slide clearfix">
+									<!-- <a href="javascript:;" class="content-slide clearfix"> -->
 										<div class="imgSwiper">
 											<div :class="'swiper-container swiper-container-inner swiper-container-inner'+ item.id">
 												<div class="swiper-wrapper">
@@ -99,7 +108,8 @@
 												</div>
 											</div>
 										</div>
-									</a>
+									<!-- </a> -->
+									</router-link>
 								</div>
 								
 							</div>
@@ -276,7 +286,10 @@
 		computed: {
 			...mapGetters({
 				currentCountry: 'currentCountry'
-			})
+			}),
+			isKorea: function () {
+				return this.currentCountry == '韩国' ? true : false;
+			}
 		},
 		components: {
 			headerTop
@@ -291,11 +304,64 @@
 						if (res.status) {
 							var obj = res.data;
 							var arr = [];
-
+							var n = 1;
 							for (let i in obj) {
+								console.log(i,obj[i].catename) 
+								obj[i].cateicon = 'static/images/application/icon'+n+'.png'
+								n++;
+								// if(obj[i].catename == '留学申请') {
+								// 	obj[i].cateicon = 'static/images/application/icon1.png'
+								// }
+								// if(obj[i].catename == '增值服务') {
+								// 	obj[i].cateicon = 'static/images/application/icon2.png'
+								// }
+								// if(obj[i].catename == '考培服务') {
+								// 	obj[i].cateicon = 'static/images/application/icon3.png'
+								// }
+								// if(obj[i].catename == '背景提升') {
+								// 	obj[i].cateicon = 'static/images/application/icon4.png'
+								// }
 							    arr.push(obj[i]);
 							}
-							_this.applyData = arr;
+							if (arr.length == 4) {
+								_this.applyData = arr;
+							}else if(arr.length == 3) {
+								var arrAdd = [{
+									"catename":"全程申请",
+									"cateicon": "static/images/application/icon2.png"
+								}];
+								
+								arr = arr.concat(arrAdd)
+								_this.applyData = arr;
+							}
+							else if(arr.length == 2) {
+								var arrAdd = [{
+									"catename":"耶鲁商科",
+									"cateicon": "static/images/application/icon3.png"
+								},{
+									"catename":"全程申请",
+									"cateicon": "static/images/application/icon4.png"
+								}];
+								
+								arr = arr.concat(arrAdd)
+								_this.applyData = arr;
+							}else if(arr.length == 1) {
+								var arrAdd = [{
+									"catename":"签证办理",
+									// "cateicon": "static/images/application/icon2.png"
+									
+								},{
+									"catename":"耶鲁商科",
+									// "cateicon": "static/images/application/icon2.png"
+								},{
+									"catename":"全程申请",
+									// "cateicon": "static/images/application/icon2.png"
+								}];
+								
+								arr = arr.concat(arrAdd)
+								_this.applyData = arr;
+							}
+
 
 							_this.$nextTick(function () {
 								//背景提升 初始化
@@ -316,7 +382,7 @@
 									e.preventDefault()
 								})
 
-								for (var i = 0; i < $('swiper-container-inner').length; i++) {
+								/*for (var i = 0; i < $('.swiper-container-inner').length; i++) {
 										var sw = 'mySwiper' + i;
 									    sw = new Swiper('.swiper-container-inner'+i,{
 										pagination: '.pagination'+1,
@@ -335,73 +401,73 @@
 										e.preventDefault()
 										sw.swipeNext()
 									})
-								}
+								}*/
 								
-								// var mySwiper1 = new Swiper('.swiper-container-inner1',{
-								// 	pagination: '.pagination1',
-								// 	slidesPerView: 1,
-								// 	// loop:true,
-								// 	// autoplay: 2000,
-								// 	autoplayDisableOnInteraction: false,
-								// 	grabCursor: true,
-								// 	paginationClickable: true
-								// })
-								// $('.swiper-button-prev1').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper1.swipePrev()
-								// })
-								// $('.swiper-button-next1').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper1.swipeNext()
-								// })
-								// var mySwiper2 = new Swiper('.swiper-container-inner2',{
-								// 	pagination: '.pagination2',
-								// 	loop:true,
-								// 	autoplay: 2000,
-								// 	autoplayDisableOnInteraction: false,
-								// 	grabCursor: true,
-								// 	paginationClickable: true
-								// })
-								// $('.swiper-button-prev2').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper2.swipePrev()
-								// })
-								// $('.swiper-button-next2').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper2.swipeNext()
-								// })
-								// var mySwiper3 = new Swiper('.swiper-container-inner3',{
-								// 	pagination: '.pagination3',
-								// 	loop:true,
-								// 	autoplay: 2000,
-								// 	autoplayDisableOnInteraction: false,
-								// 	grabCursor: true,
-								// 	paginationClickable: true
-								// })
-								// $('.swiper-button-prev3').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper3.swipePrev()
-								// })
-								// $('.swiper-button-next3').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper3.swipeNext()
-								// })
-								// var mySwiper4 = new Swiper('.swiper-container-inner4',{
-								// 	pagination: '.pagination4',
-								// 	loop:true,
-								// 	autoplay: 2000,
-								// 	autoplayDisableOnInteraction: false,
-								// 	grabCursor: true,
-								// 	paginationClickable: true
-								// })
-								// $('.swiper-button-prev4').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper4.swipePrev()
-								// })
-								// $('.swiper-button-next4').on('click', function(e){
-								// 	e.preventDefault()
-								// 	mySwiper4.swipeNext()
-								// })
+								var mySwiper1 = new Swiper('.swiper-container-inner1',{
+									pagination: '.pagination1',
+									slidesPerView: 1,
+									// loop:true,
+									// autoplay: 2000,
+									autoplayDisableOnInteraction: false,
+									grabCursor: true,
+									paginationClickable: true
+								})
+								$('.swiper-button-prev1').on('click', function(e){
+									e.preventDefault()
+									mySwiper1.swipePrev()
+								})
+								$('.swiper-button-next1').on('click', function(e){
+									e.preventDefault()
+									mySwiper1.swipeNext()
+								})
+								var mySwiper2 = new Swiper('.swiper-container-inner2',{
+									pagination: '.pagination2',
+									loop:true,
+									autoplay: 2000,
+									autoplayDisableOnInteraction: false,
+									grabCursor: true,
+									paginationClickable: true
+								})
+								$('.swiper-button-prev2').on('click', function(e){
+									e.preventDefault()
+									mySwiper2.swipePrev()
+								})
+								$('.swiper-button-next2').on('click', function(e){
+									e.preventDefault()
+									mySwiper2.swipeNext()
+								})
+								var mySwiper3 = new Swiper('.swiper-container-inner3',{
+									pagination: '.pagination3',
+									loop:true,
+									autoplay: 2000,
+									autoplayDisableOnInteraction: false,
+									grabCursor: true,
+									paginationClickable: true
+								})
+								$('.swiper-button-prev3').on('click', function(e){
+									e.preventDefault()
+									mySwiper3.swipePrev()
+								})
+								$('.swiper-button-next3').on('click', function(e){
+									e.preventDefault()
+									mySwiper3.swipeNext()
+								})
+								var mySwiper4 = new Swiper('.swiper-container-inner4',{
+									pagination: '.pagination4',
+									loop:true,
+									autoplay: 2000,
+									autoplayDisableOnInteraction: false,
+									grabCursor: true,
+									paginationClickable: true
+								})
+								$('.swiper-button-prev4').on('click', function(e){
+									e.preventDefault()
+									mySwiper4.swipePrev()
+								})
+								$('.swiper-button-next4').on('click', function(e){
+									e.preventDefault()
+									mySwiper4.swipeNext()
+								})
 							})
 						}
 					}
@@ -416,7 +482,7 @@
 						if(res.status) {
 							for (var i = 0; i < res.data.length; i++) {
 								if (res.data[i].name == _this.currentCountry) {
-									console.log('2222',_this.currentCountry);
+									// console.log('apply_getCountry',_this.currentCountry);
 									_this.countryId = res.data[i].id;
 									_this.getData(_this.countryId);
 								}

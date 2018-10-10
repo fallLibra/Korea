@@ -4,7 +4,6 @@ export default {
 		
 		try {
 			localStorage.country = country;
-
 			// console.log('localStorage.country',localStorage.country);
 
 		} catch (e) {}
@@ -21,11 +20,9 @@ export default {
 	initGlobalData(state, country) {
 		var array = state.countryData;
 		var defaultCountry = localStorage.country?localStorage.country:state.country
-
 		for (var i = 0; i < array.length; i++) {
 			if (array[i].name == defaultCountry) {
 				state.selectedcountryData = array[i];
-				// console.log('initGlobalData',JSON.stringify(state.selectedcountryData));
 			}
 		}
 	}

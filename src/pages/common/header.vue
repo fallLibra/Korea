@@ -124,9 +124,9 @@
 			}
 		},
 		computed: {
-			...mapState({
-				selectedCounted: 'country'
-			}),
+			// ...mapState({
+			// 	selectedCounted: 'country'
+			// }),
 			...mapGetters({
 				currentCountry: 'currentCountry'
 			})
@@ -147,11 +147,10 @@
 					success: function (res) {
 						if(res.status) {
 							_this.countryList = res.data;
-							// console.log(_this.countryList);
+							
 							_this.$nextTick(function () {
 								$('#countryList li').each(function () {
 									var $span = $(this).find('a span');
-									// console.log(111,$span.text());
 									if($span.text() == _this.currentCountry) {
 										$('#countryList li').find('a').removeClass('active');
 										$(this).find('a').addClass('active');
@@ -172,12 +171,12 @@
 
 				$(el).addClass('active');
 				_this.tabCountry(country);
-				console.log('111')
 				$.ajax({
 					url: "http://manage.xiaoying.net/getcountrylink?id=" + id,
 					type: "GET",
 					success: function(res) {
-						console.log('222')
+						console.log('getcountrylink',res.data)
+
 					}
 				})
 				// _this.$router.push({ path: 'School' });
@@ -321,9 +320,10 @@
 		},
 		mounted:function() {
 			var _this = this;
-			console.log('_this.currentCountry',_this.currentCountry,_this.selectedCounted);
+			// console.log('_this.currentCountry',_this.currentCountry,_this.selectedCounted);
 
 			_this.getCountry();
+			//school  地区
 			_this.initGlobalData();
 			
 			

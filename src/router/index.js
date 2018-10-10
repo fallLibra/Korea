@@ -34,7 +34,7 @@ export default new Router({
 		component: Applylist
 	},
 	{
-		path: '/applydetails',
+		path: '/applydetails/:id',
 		name: 'Applydetails',
 		component: Applydetails
 	},

@@ -81,7 +81,7 @@
 									</div>
 									<div class="news-wapper jm-fl">
 										<h2 class="">{{item.title}}</h2>
-										<p>昨日，THE发布2017亚太地区最佳大学排名——Best universities in the Asia-Pacific region 2017！该排名分析了东亚、东南亚、大洋洲的38个国家，排名包括200多所来自13个国家的大学。其中日本大学上榜最多，有69所；中国第二，上榜52所，依次为澳洲35所，韩国25所。 中国和新加坡</p>
+										<p v-html="item.des"></p>
 										<div class="statistics-mes">
 											<span><img src="../../../static/images/school/eyes.png">6173</span>
 											<span><img src="../../../static/images/school/time.png">2017-07-05</span>
