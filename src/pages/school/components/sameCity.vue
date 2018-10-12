@@ -348,7 +348,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px;
-    width: 320px;
+    // width: 320px;
     border: 1px #E5E5E5 solid;
     background: #FCFCFC;
 }

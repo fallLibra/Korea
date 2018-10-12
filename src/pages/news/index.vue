@@ -89,6 +89,7 @@
 	import hotActivities from '@/pages/common/hotActivities.vue';
 	import parentsCare from '@/pages/common/parentsCare.vue';
 	import hotFlag from '@/pages/common/hotFlag.vue';
+	import {mapGetters} from 'vuex'
 	export default{
 		name: 'News',
 		data () {
@@ -104,6 +105,7 @@
 					cateid: ''
 				},
 				newsTotal: 0 ,//资讯总数,
+				countryId: 0
 			}
 		},
 		components: {
@@ -112,13 +114,19 @@
 			parentsCare,
 			hotFlag
 		},
+		computed: {
+			...mapGetters({
+				currentCountry: 'currentCountry'
+			})
+		},
 		methods: {
-			getNewsNavData () {
+			getNewsNavData (id) {
 				var _this = this;
+				var _id = id;
 				console.log('localStorage.cateid',localStorage.cateid,localStorage.cateidSec);
 
 				$.ajax({
-					url: "http://manage.xiaoying.net/article/catesearch",
+					url: "http://manage.xiaoying.net/article/catesearch?countryid=" + _id,
 					type:"GET",
 					success: function(res) {
 						_this.newsNav = res;
@@ -130,7 +138,7 @@
 									}
 								})
 								_this.request.cateidSecNav = localStorage.cateid;
-								_this.getSecNavData();
+								_this.getSecNavData(_id);
 							} else if (localStorage.cateid == '') {
 								$('.newsNavUl li').eq(0).addClass('active').siblings().removeClass('active');
 								$('.secNavList li').eq(0).addClass('active').siblings().removeClass('active');
@@ -139,10 +147,11 @@
 					}
 				})
 			},
-			getSecNavData () {
+			getSecNavData (id) {
 				var _this = this;
+				var _id = id;
 				$.ajax({
-					url: "http://manage.xiaoying.net/article/catesearch?cateid="+ _this.request.cateidSecNav,
+					url: "http://manage.xiaoying.net/article/catesearch?cateid=3"+"&countryid=" + _id,
 					type:"GET",
 					success: function(res) {
 						_this.newsSecNav= res;
@@ -159,15 +168,16 @@
 								$('.secNavList li').eq(0).addClass('active').siblings().removeClass('active');
 								_this.request.cateid = localStorage.cateid;
 							}
-							_this.getNewListData();
+							_this.getNewListData(_id);
 						})
 					}
 				})
 			},
-			getNewListData () {
+			getNewListData (id) {
 				var _this = this;
+				var _id = id;
 				$.ajax({
-					url: "http://manage.xiaoying.net/article/contentssearch?page="+_this.request.page + "&limit=" +_this.request.limit+"&cateid="+ _this.request.cateid,
+					url: "http://manage.xiaoying.net/article/contentssearch?page="+_this.request.page + "&limit=" +_this.request.limit+"&cateid="+ _this.request.cateid + "&countryid=" + _id,
 					type:"GET",
 					success: function(res) {
 						var array = res.data;
@@ -204,7 +214,7 @@
 									localStorage.page = api.getCurrent();
 									_this.request.page = localStorage.page;
 									console.log(_this.request.page);
-									_this.getNewListData();
+									_this.getNewListData(_id);
 								}
 							}
 						});
@@ -227,7 +237,7 @@
 					localStorage.cateidSec = '';
 					localStorage.cateid = $(el).data('cateid');
 
-					_this.getSecNavData();
+					_this.getSecNavData(_this.countryId);
 
 
 				} else {
@@ -235,7 +245,7 @@
 					_this.request.cateid = '';
 					localStorage.cateid = '';
 					_this.newsSecNav = '';
-					_this.getNewListData();
+					_this.getNewListData(_this.countryId);
 				}
 				
 			},
@@ -248,13 +258,13 @@
 				if($(el).data('cateid') != 'secNavAll') {
 					_this.request.cateid = $(el).data('cateid');
 					localStorage.cateidSec = $(el).data('cateid');
-					_this.getNewListData();
+					_this.getNewListData(_this.countryId);
 				} else {
 					//点击全部
 					console.log(2)
 					_this.request.cateid = localStorage.cateid;
 					localStorage.cateidSec = '';
-					_this.getNewListData();
+					_this.getNewListData(_this.countryId);
 				}
 
 			},
@@ -268,15 +278,41 @@
 		        var s = date.getSeconds();
 		        return Y+M+D;
 		        // return Y+M+D+h+m+s;
-		    }
+		    },
+		    getCountry() {
+				var _this = this;
+				$.ajax({
+					url: "http://manage.xiaoying.net/getcountry",
+					type:"GET",
+					success: function (res) {
+						if(res.status) {
+							for (var i = 0; i < res.data.length; i++) {
+								if (res.data[i].name == _this.currentCountry) {
+									_this.countryId = res.data[i].id;
+									console.log('apply_getCountry',_this.countryId);
+1
+									//初始化一级分类
+									_this.getNewsNavData(_this.countryId);
+									// 初始化课程列表
+									_this.getNewListData(_this.countryId);
+
+									// _this.getData(_this.countryId);
+
+								}
+							}
+						}
+					}
+				})
+			}
 		},
 		mounted () {
 			var _this = this;
-			_this.request.page = localStorage.page?localStorage.page:1
-			//初始化一级分类
+			_this.request.page = localStorage.page?localStorage.page:1;
+			_this.getCountry();
+			/*//初始化一级分类
 			_this.getNewsNavData();
 			// 初始化课程列表
-			_this.getNewListData();
+			_this.getNewListData();*/
 
 		},
 		beforeRouteLeave (to, from, next) {

@@ -6,6 +6,32 @@ a {
 * {
 	box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 10px
+}
+
+::-webkit-scrollbar-track {
+    background-color: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #FFD900;
+    border-radius: 10px
+}
+
+::selection {
+    background: #ff85c2;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #ff85c2;
+    color: #fff;
+}
 input,
 select {
 	border: none;
@@ -213,7 +239,7 @@ body {
             .logo {
                 width: 250px;
                 font-size: 0;
-                margin-top: -18px;
+                // margin-top: -18px;
                 display: block;
                 float: left;
                 img {
@@ -946,4 +972,58 @@ body {
 }
 .mainPart {
     margin-top: @headerHeight;
+}
+//school index
+#detailsKr,
+#jpyy,
+#indexJpCollege,
+#indexKorea {
+    .pageNav {
+        padding: 30px 0;
+        text-align: center;
+        li {
+            display: inline-block;
+        }
+        a {
+            .border-radius(5px);
+            padding: 11px 15px;
+            text-align: center;
+            color: #5b5a5a;
+            background-color: #fff;
+            border: 1px solid #c8c8c8;
+            display: inline-block;
+            margin-left: 5px;
+            .transition();
+            &.page {
+            }
+            &.active {
+                color: #fff;
+                background-color: #FFD900;
+                border-color: #c8c8c8;
+            }
+            &:hover {
+                cursor: pointer;
+                color: #fff;
+                background-color: #FFD900;
+                border-color: #c8c8c8;
+            }
+        }
+    }
+    .select2 {
+        float: left;
+        margin-right: 30px;
+        span {
+            height: 37px !important;
+            line-height: 37px !important;
+            outline: none;
+        }
+        .select2-selection--single {
+            border-color: #ffd900 !important;
+        }
+        .select2-selection__arrow {
+            background: #ffd900;
+            width: 60px !important;
+            top: 0 !important;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-let defaultCountry = '韩国'
+let defaultCountry = '日本'
 
 try {
   if (localStorage.country) {

@@ -10,17 +10,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
-    <title>韩国留学</title>
+    <title></title>
     <link rel="icon" href="static/" type="image/x-icon" />
     <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon"  />
-    <link rel="stylesheet" type="text/css" href="static/stylesheet/animate.css">
     <link rel="stylesheet" type="text/css" href="static/stylesheet/reset.min.css">
-    <link rel="stylesheet" type="text/css" href="static/plugins/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="static/stylesheet/public.css">
+    <link rel="stylesheet" type="text/css" href="static/stylesheet/animate.css">
+    <link rel="stylesheet" type="text/css" href="static/plugins/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="static/plugins/swiper2/idangerous.swiper.css">
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script src="static/plugins/background-blur.js"></script>
     <script type="text/javascript" src="static/plugins/jquery.pagination.js"></script>
+    <script type="text/javascript" src="static/plugins/jqPaginator/jqPaginator.min.js"></script>
     <script type="text/javascript" src="static/plugins/swiper2/idangerous.swiper.min.js"></script>
+    <script type="text/javascript" src="static/plugins/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="static/plugins/echarts.js"></script>
+    <!-- <script type="text/javascript" src="static/plugins/imagesloaded.pkgd.js"></script> -->
     <script src="static/plugins/select2/select2.min.js"></script>
     <script src="static/js/vue.min.js"></script>
     <script src="http://crm.xiaoying.net/Public/js/xiaoying_form.js"></script>
@@ -61,36 +66,37 @@
     <script src="http://api.map.baidu.com/api?v=3.0&ak=pUz2rNiU7Evm31qj7G39zly7WGZZ9XAN"></script>
 
     <script type="text/javascript">
-    //placeholder  兼容IE9
-    var hasPlaceholderSupport = function() {
-      var attr = "placeholder";
-      var input = document.createElement("input");
-      return attr in input;
-    }
-    var support = hasPlaceholderSupport();
-    if (!support) {
-      $('[placeholder]').focus(function() {
-        var input = $(this);
-        if (input.val() == input.attr('placeholder')) {
-          input.val('');
-          input.removeClass('placeholder');
-        }
-      }).blur(function() {
-        var input = $(this);
-        if (input.val() == '' || input.val() == input.attr('placeholder')) {
-          input.addClass('placeholder');
-          input.val(input.attr('placeholder'));
-        }
-      }).blur().parents('form').submit(function() {
-        $(this).find('[placeholder]').each(function() {
+      
+      //placeholder  兼容IE9
+      var hasPlaceholderSupport = function() {
+        var attr = "placeholder";
+        var input = document.createElement("input");
+        return attr in input;
+      }
+      var support = hasPlaceholderSupport();
+      if (!support) {
+        $('[placeholder]').focus(function() {
           var input = $(this);
           if (input.val() == input.attr('placeholder')) {
             input.val('');
+            input.removeClass('placeholder');
           }
-        })
-      });
-    }
-    
+        }).blur(function() {
+          var input = $(this);
+          if (input.val() == '' || input.val() == input.attr('placeholder')) {
+            input.addClass('placeholder');
+            input.val(input.attr('placeholder'));
+          }
+        }).blur().parents('form').submit(function() {
+          $(this).find('[placeholder]').each(function() {
+            var input = $(this);
+            if (input.val() == input.attr('placeholder')) {
+              input.val('');
+            }
+          })
+        });
+      }
+      
   </script>
 </body>
 

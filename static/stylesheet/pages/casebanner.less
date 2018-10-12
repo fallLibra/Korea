@@ -1,0 +1,98 @@
+@import url("../function.less");
+@import url("../publicConfig.less");
+@yellow: #eeca23;
+
+.case_head{
+	height: 400px;
+	background: #ebecf0;
+	width: 100%;
+	overflow: hidden;
+	.case_head_con {
+		position: relative;
+		width: 1200px;
+		margin: 0 auto;
+		.banner{
+			position: absolute;
+			top: 0;
+			right: -434px;
+		}
+		&>h4 {
+			padding-top: 65px;
+		}
+		&>h4,
+		&>p {
+			font-size: 24px;
+			color: #000103;
+			line-height: 38px;
+		}
+	}
+	.caseBlockUl{
+		margin-top: 151px;
+		font-size: 0;
+		li{
+			display: inline-block;
+			margin-right: 42px;
+			a{
+				display: block;
+				width: 137px;
+				height: 81px;
+				text-align: center;
+				font-size: 20px;
+				color: #000;
+				overflow: hidden;
+
+				.statusDv {
+					margin-top: 0;
+					.transition(all .3s);
+					.normalStatusDv {
+						padding-top: 6px;
+						padding-bottom: 9px;
+						div {
+							line-height: 42px;
+							img {
+								vertical-align: middle;
+							}
+						}
+						p {
+							line-height: 24px;
+						}
+					}
+					.lightStatusDv {
+						padding-top: 20px;
+						padding-bottom: 25px;
+						background-color: #003567;
+						p {
+							position: relative;
+							line-height: 36px;
+							color: #fbfaf8;
+							&::after {
+								content: "";
+								position: absolute;
+								top: 100%;
+								left: 50%;
+								width: 40px;
+								height: 3px;
+								background-color: @yellow;
+								.transform(translateX(-50%));
+							}
+						}
+					}
+				}
+			}
+			&.active {
+				a {
+					.statusDv {
+						margin-top: -81px;
+					}
+				}
+			}
+			&:hover {
+				a {
+					.statusDv {
+						margin-top: -81px;
+					}
+				}
+			}
+		}
+	} 
+}

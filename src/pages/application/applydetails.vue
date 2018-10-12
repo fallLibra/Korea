@@ -24,9 +24,9 @@
 			</div>
 			<div class="serviceIntro">
 				<div class="container">
-					<!-- <h4 class="applyTitleDv">
-						<img class="icon-titl" src="static/images/application/icon-title.png">服务介绍
-					</h4> -->
+					<h4 class="applyTitleDv">
+						<img class="icon-titl" src="static/images/application/icon-title1.png">服务介绍
+					</h4>
 					<div class="serviceCont"></div>
 				</div>
 			</div>
@@ -55,13 +55,14 @@
 			})
 		},
 		methods: {
+
 			getData() {
 				var _this = this;
 				var id = _this.$route.params.id;
-				localStorage['applydetailstype'] = _this.$route.params.type;
+				// localStorage['applydetailstype'] = _this.$route.params.type;
 
-				var url = localStorage['applydetailstype'] == '背景提升' ? ("http://manage.xiaoying.net/backdetail?id="+ id) :("http://manage.xiaoying.net/getliuxuedetail?id="+ id);
-				console.log(localStorage.applydetailstype,url);
+				var url = localStorage.applistType == "背景提升" ? ("http://manage.xiaoying.net/backdetail?id="+ id) :("http://manage.xiaoying.net/getliuxuedetail?id="+ id);
+				console.log(111,localStorage.applistType,url);
 
 				$.ajax({
 					url: url,
@@ -71,7 +72,14 @@
 							_this.applyDet = res.data;
 							var $pre = $('<pre>');
 							$pre.html(_this.applyDet.detail);
+							
 							$('.serviceCont').html($pre.text());
+							$('.serviceCont img').each(function () {
+								console.log($(this).attr('src').indexOf('/ueditor'))
+								if($(this).attr('src').indexOf('/ueditor') == 0) {
+									$(this).attr('src','http://manage.xiaoying.net' + $(this).attr('src'));
+								}
+							})
 							$('.serviceCont h3').css({
 								'background':"url('../../../static/images/application/detail_title_backgroud.png') no-repeat 0 0",
 								'margin': '20px 0'
@@ -96,23 +104,7 @@
 		mounted () {
 			var _this = this;
 			_this.getData();
-			// var tabsSwiper = new Swiper('.swiper-container-table',{
-			// 	speed:500,
-			// 	onSlideChangeStart: function(){
-			// 		$(".tabs .active").removeClass('active')
-			// 		$(".tabs a").eq(tabsSwiper.activeIndex).addClass('active')  
-			// 	}
-			// })
-			// $(".tabs a").on('touchstart mousedown',function(e){
-			// 	e.preventDefault()
-			// 	$(".tabs .active").removeClass('active')
-			// 	$(this).addClass('active')
-			// 	tabsSwiper.swipeTo( $(this).index() )
-			// })
-			// $(".tabs a").click(function(e){
-			// 	e.preventDefault()
-			// })
-		}
+		}	
 	}
 </script>
 <style scoped lang="less">

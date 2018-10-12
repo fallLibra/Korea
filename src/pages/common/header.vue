@@ -18,7 +18,7 @@
 				<div class="head_effect">
 
 					<div class="searchGroup container copy">
-						<a href="http://class.xiaoying.net/mall" class="logo" style="margin-top: 15px;"><img src="../../../static/images/header/logo.png" style="width: 142px"></a>
+						<a href="http://class.xiaoying.net/mall" class="logo"><img src="../../../static/images/header/logo.svg" style="width: 142px"></a>
 						<ul class="s_nav  clearfix" style="padding-right: 210px;">
 							<li data-nav='index'>
 								<router-link to="/">首页</router-link>
@@ -50,7 +50,7 @@
 					</div>
 					<div class="searchGroup container t_main">
 						<div class="clearfix">
-							<a href="/mall" class="logo" style="margin-top: -5px;"><img src="../../../static/images/header/logo.svg" style="width: 142px"></a>
+							<a href="/mall" class="logo" style="margin-top: -17px;"><img src="../../../static/images/header/logo.svg" style="width: 142px"></a>
 							<div class="searchPart">
 								<div>
 									<input type="text" name="" v-model="inputval" @keyup.13="ready()" id="ssinput">
@@ -94,13 +94,13 @@
 		    <!-- 选择国家 -->
 		    <div class="areaPart" id="b">
 		    	<div class="areaHeader clearfix">
-		    		<h3>选择城市：</h3>
+		    		<h3>选择国家：</h3>
 		    		<div class="closeImg">×</div>
 		    	</div>
 		    	<ul class="cityList clearfix" id="countryList">
 		    		<li v-for="item in countryList" :key="item.id">
-		    			<a href="javascript:;" @click="tabCountryClick(item.name,item.id,$event)"><span :data-hover="item.name">{{item.name}}</span></a>
-		    			<!-- <a href="javascript:;" @click="tabCountryClick(item.name,$event)"><span :data-hover="item.name"><img class="dd_img" :src="item.flagSrc" :alt="item.name">{{item.name}}</span></a> -->
+		    			<!-- <a href="javascript:;" @click="tabCountryClick(item.name,item.id,$event)"><span :data-hover="item.name">{{item.name}}</span></a> -->
+		    			<a href="javascript:;" @click="tabCountryClick(item.name,item.id,$event)"><span :data-hover="item.name"><img class="dd_img" :src="'http://manage.xiaoying.net'+ item.headimg" :alt="item.name">{{item.name}}</span></a>
 		    		</li>
 		    	</ul>
 		    </div>
@@ -138,6 +138,7 @@
 		props: {
 			nav: String
 		},
+		
 		methods: {
 			getCountry () {
 				var _this = this;
@@ -168,7 +169,7 @@
 				$('#countryList li').find('a').removeClass('active');
 				$(".overlay_city").hide();
             	$(".areaPart").removeClass("in");
-
+            	console.log('tabCountryClick',id);
 				$(el).addClass('active');
 				_this.tabCountry(country);
 				$.ajax({
@@ -179,13 +180,11 @@
 
 					}
 				})
-				// _this.$router.push({ path: 'School' });
-				_this.$router.go(0);
+				_this.$router.push({ path: '/' });
+				_this.$router.go('0');
 
 			},
 			...mapMutations(['tabCountry','initGlobalData']),
-
-
 			ready: function(){
 				if ($("#searchOp").val() == '0') {
 					window.location.href = 'http://class.xiaoying.net/Result?type=banji&keywords='+encodeURI(this.inputval)

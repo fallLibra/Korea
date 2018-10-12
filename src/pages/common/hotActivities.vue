@@ -130,4 +130,10 @@
 	}
 
 }
+#caseadmission {
+	.hotActivitiesPart {
+		border: 1px solid #EEE!important;
+		.box-shadow(0, 2px, 8px, 4px, #E6EEF7,.15);
+	}
+}
 </style>

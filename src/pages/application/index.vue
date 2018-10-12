@@ -4,12 +4,14 @@
 		<div class="mainPart">
 			<div class="container typeList">
 				<ul class="clearfix">
-					<li v-for="item in applyData" :key="item.catename">
-						<router-link to="/Applylist" v-if='item.data'>
+					<li v-for="item in applyData" :key="item.catename" @click = "setApplistType(item.type)">
+						<router-link :to="{ name: 'Applylist', params: { type: item.type }}" v-if='item.data' @click = "setApplistType(item.type)">
+						<!-- <a href="javascript:;" v-if='item.data' @click = "setApplistType(item.type)"> -->
 							<img :src="item.cateicon">
 							<p v-html="item.catename"></p>
+						<!-- </a>	 -->
 						</router-link>
-						<router-link to="/applydetails" v-else>
+						<router-link :to="item.cateLink" v-else>
 							<img :src="item.cateicon">
 							<p v-html="item.catename"></p>
 						</router-link>
@@ -17,10 +19,16 @@
 				</ul>
 			</div>
 			<div class="applyInfoPart">
-				<div class="applyInfoItem" v-for="n in applyData" :key="n.catename">
-					<h4 class="container applyTitleDv">
+				<div class="applyInfoItem" v-for="n in applyData" :key="n.catename" v-if='n.data'>
+					<h4 class="container applyTitleDv"  @click = "setApplistType(n.type)">
 						{{n.catename}}
-						<a class="moreBtn" href="javascript:;">more&nbsp;></a>
+						<img class="icon-flag" :src="'http://manage.xiaoying.net'+ n.cateimg" v-if="n.cateimg"></img>
+						<router-link class="moreBtn" :to="{ name: 'Applylist', params: { type: n.type }}">
+						<!-- <a class="moreBtn" href="javascript:;"  @click = "setApplistType(n.type)"> -->
+							more&nbsp;>
+						<!-- </a>		 -->
+							</router-link>
+						<!-- <a class="moreBtn" href="javascript:;">more&nbsp;></a> -->
 						<div class="tabs" v-if="n.catename == '背景提升'">
 							<!-- <a href="javascript:;" class="active">耶鲁商科</a> 
 							<a href="javascript:;">香港金融</a> 
@@ -39,8 +47,8 @@
 									<a href="javascript:;" target="_blank">在线咨询</a>
 								</div>
 							</li> -->
-							<li v-for="item in n.data" :key = "n.id">
-								<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: '11' }}">
+							<li v-for="item in n.data" :key = "n.id" @click = "setApplistType(n.type)">
+								<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: n.type }}" >
 								<!-- <a href="javascript:;"> -->
 									<img :src="'http://manage.xiaoying.net'+ item.headimg">
 									<h3>{{item.title}}</h3>
@@ -49,7 +57,7 @@
 								</router-link>
 								<div class="hoverDv">
 									<!-- <a href="javascript:;" target="_blank">查看详情</a> -->
-									<a href="javascript:;" target="_blank">在线咨询</a>
+									<a href="javascript:;" target="_blank"  @click="onlineConsult">在线咨询</a>
 								</div>
 							</li>
 						</ul>
@@ -58,8 +66,8 @@
 					<div class="container tableDv" v-else>
 						<div class="swiper-container swiper-container-table">
 							<div class="swiper-wrapper">
-								<div class="swiper-slide" v-for="item in n.data" :key = "n.id">
-									<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: '背景提升' }}" class="content-slide clearfix">
+								<div class="swiper-slide" v-for="item in n.data" :key = "n.id" @click = "setApplistType(n.type)">
+									<router-link :to="{ name: 'Applydetails', params: { id: item.id,type: n.type }}" class="content-slide clearfix" >
 									<!-- <a href="javascript:;" class="content-slide clearfix"> -->
 										<div class="imgSwiper">
 											<div :class="'swiper-container swiper-container-inner swiper-container-inner'+ item.id">
@@ -86,24 +94,9 @@
 												<div class="hidden-xs">
 													<h4>项目亮点</h4>
 													<ul>
-														<li v-html="item.xmbright">
+														<li v-for= " n in item.xmbright" v-html= "n">
 															
 														</li>
-														<!-- <li>
-															耶鲁教授“个性化”推荐信
-														</li>
-														<li>
-															免费文书指导服务
-														</li>
-														<li>
-															提供结课证书和成绩单
-														</li>
-														<li>
-															7天高度浓缩课程
-														</li>
-														<li>
-															商科专业&amp;跨专业&amp;在职人员
-														</li> -->
 													</ul>
 												</div>
 											</div>
@@ -286,15 +279,16 @@
 		computed: {
 			...mapGetters({
 				currentCountry: 'currentCountry'
-			}),
-			isKorea: function () {
-				return this.currentCountry == '韩国' ? true : false;
-			}
+			})
 		},
 		components: {
 			headerTop
 		},
 		methods: {
+			setApplistType (type) {
+				var _this = this;
+				localStorage.applistType = type;
+			},
 			getData (id) {
 				var _this = this;
 				$.ajax({
@@ -305,30 +299,28 @@
 							var obj = res.data;
 							var arr = [];
 							var n = 1;
+
 							for (let i in obj) {
-								console.log(i,obj[i].catename) 
 								obj[i].cateicon = 'static/images/application/icon'+n+'.png'
 								n++;
-								// if(obj[i].catename == '留学申请') {
-								// 	obj[i].cateicon = 'static/images/application/icon1.png'
-								// }
-								// if(obj[i].catename == '增值服务') {
-								// 	obj[i].cateicon = 'static/images/application/icon2.png'
-								// }
-								// if(obj[i].catename == '考培服务') {
-								// 	obj[i].cateicon = 'static/images/application/icon3.png'
-								// }
-								// if(obj[i].catename == '背景提升') {
-								// 	obj[i].cateicon = 'static/images/application/icon4.png'
-								// }
+								obj[i].type = obj[i].catename;
+								
+								if(obj[i].catename == '背景提升') {
+									for (var n = 0; n < obj[i].data.length; n++) {
+										var $pre = $('<pre>');
+										$pre.html(obj[i].data[n].xmbright)
+										obj[i].data[n].xmbright = $pre.html().split(/[\n]/g);
+									}
+								}
+								//留学申请  首页每个分类最多展示4个
+								obj[i].data = obj[i].data.slice(0,4);
 							    arr.push(obj[i]);
 							}
-							if (arr.length == 4) {
-								_this.applyData = arr;
-							}else if(arr.length == 3) {
+							if(arr.length == 3) {
 								var arrAdd = [{
 									"catename":"全程申请",
-									"cateicon": "static/images/application/icon2.png"
+									// "cateicon": "static/images/application/icon2.png",
+									"cateLink": "/applydetails/lxsq/4"
 								}];
 								
 								arr = arr.concat(arrAdd)
@@ -337,10 +329,12 @@
 							else if(arr.length == 2) {
 								var arrAdd = [{
 									"catename":"耶鲁商科",
-									"cateicon": "static/images/application/icon3.png"
+									"cateicon": "static/images/application/icon3.png",
+									"cateLink": "applydetails/bjts/1"
 								},{
 									"catename":"全程申请",
-									"cateicon": "static/images/application/icon4.png"
+									"cateicon": "static/images/application/icon4.png",
+									"cateLink": "/applydetails/lxsq/4"
 								}];
 								
 								arr = arr.concat(arrAdd)
@@ -348,19 +342,23 @@
 							}else if(arr.length == 1) {
 								var arrAdd = [{
 									"catename":"签证办理",
-									// "cateicon": "static/images/application/icon2.png"
+									"cateicon": "static/images/application/icon2.png"
 									
 								},{
 									"catename":"耶鲁商科",
-									// "cateicon": "static/images/application/icon2.png"
+									"cateLink": "applydetails/bjts/1",
+									"cateicon": "static/images/application/icon2.png"
 								},{
 									"catename":"全程申请",
+									"cateLink": "/applydetails/lxsq/4"
 									// "cateicon": "static/images/application/icon2.png"
 								}];
 								
 								arr = arr.concat(arrAdd)
 								_this.applyData = arr;
-							}
+							}else {
+								_this.applyData = arr;
+							} 
 
 
 							_this.$nextTick(function () {
@@ -490,6 +488,9 @@
 						}
 					}
 				})
+			},
+			onlineConsult () {
+				_MEIQIA('showPanel');
 			}
 		},
 		mounted () {
